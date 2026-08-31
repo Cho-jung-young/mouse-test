@@ -4,8 +4,6 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/outputs.h>
 
-// #include <dt-bindings/zmk/mouse.h>
-
 #define DEFAULT 0
 #define SCRLM 1
 #define SCRLH 2
@@ -14,6 +12,14 @@
 #define SNIPE 5
 
 / {
+  /* 1. 스크롤 감속을 위한 프로세서 정의 */
+  scroll_scaler: scroll_scaler {
+    compatible = "zmk,input-processor-scaler";
+    #input-processor-cells = <2>;
+    type = <INPUT_EV_REL>;
+    bindings = <&zip_xy_scaler 1 4>; /* 현재 속도의 1/4로 감소 (더 느리게 하려면 1 6 또는 1 8) */
+  };
+
   combos {
     compatible = "zmk,combos";
     combo_esc {
@@ -22,6 +28,7 @@
       bindings = <&mkp RCLK>;
     };
   };
+
   behaviors {
     ltm: layer-tap-momentary {
       compatible = "zmk,behavior-hold-tap";
@@ -47,6 +54,7 @@
       bindings = <&mo>, <&to>;
     };
   };
+
   keymap {
     compatible = "zmk,keymap";
     default_layer {
@@ -90,6 +98,16 @@
         &trans &trans &trans &lth SCRLM RCLK
         &trans               &to DEFAULT
       >;
+    };
+  };
+
+  /* 2. 트랙볼 이벤트를 감속 스케일러와 결합하여 스크롤로 매핑 */
+  trackball_listener: trackball_listener {
+    compatible = "zmk,input-listener";
+    device = <&trackball>;
+    scroller {
+      layers = <1 2>; /* SCRLM=1, SCRLH=2 */
+      input-processors = <&scroll_scaler 1 4>, <&zip_xy_to_scroll_mapper>;
     };
   };
 };
