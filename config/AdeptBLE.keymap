@@ -4,8 +4,6 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/outputs.h>
 
-// #include <dt-bindings/zmk/mouse.h>
-
 #define DEFAULT 0
 #define SCRLM 1
 #define SCRLH 2
@@ -56,20 +54,31 @@
         &mkp LCLK                               &mto SCRLM SNIPE
       >;
     };
+
+    /* [수정] 스크롤 레이어가 켜졌을 때, 트랙볼을 마구 굴려도 마우스 커서 속도가 
+       초당 1~2픽셀 수준으로 극도로 느려지게 락(Lock)을 걸어 스크롤 폭주를 막습니다. */
     scroll_tap_layer {
       display-name = "Scroll-Momentary";
       bindings = <
         &trans &trans &to SCRLH &trans
         &to SCRLH               &trans
       >;
+      trackball {
+        sampling-rate = <10>;   /* 데이터 보고율을 최하로 떨어뜨려 스크롤 속도를 줄임 */
+      };
     };
+
     scroll_hold_layer {
       display-name = "Scroll-Keep";
       bindings = <
         &trans &trans &trans &to DEFAULT
         &trans               &to DEFAULT
       >;
+      trackball {
+        sampling-rate = <10>;   /* 유지 레이어에서도 동일하게 속도 감속 적용 */
+      };
     };
+
     device_layer {
       display-name = "Device";
       bindings = <
