@@ -14,12 +14,6 @@
 #define SNIPE 5
 
 / {
-  scroll_scaler: scroll_scaler {
-    compatible = "zmk,input-processor-scaler";
-    #input-processor-cells = <2>;
-    type = <INPUT_EV_REL>;
-    bindings = <&zip_xy_scaler 1 4>; /* 1 4는 1/4 속도 의미, 더 느리게 하려면 1 6 또는 1 8 */
-  };
   combos {
     compatible = "zmk,combos";
     combo_esc {
@@ -96,16 +90,6 @@
         &trans &trans &trans &lth SCRLM RCLK
         &trans               &to DEFAULT
       >;
-    };
-  };
-
-  /* 2단계 추가: 트랙볼 신호를 1/4 속도 스케일러를 거쳐 스크롤로 매핑 */
-  trackball_listener: trackball_listener {
-    compatible = "zmk,input-listener";
-    device = <&trackball>;
-    scroller {
-      layers = <1 2>; /* SCRLM(1) 레이어와 SCRLH(2) 레이어 작동 */
-      input-processors = <&scroll_scaler 1 4>, <&zip_xy_to_scroll_mapper>;
     };
   };
 };
