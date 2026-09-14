@@ -1,2 +1,3 @@
-config SHIELD_ADEPTBLE
-    def_bool $(shields_list_contains,AdeptBLE)
+config SHIELD_ADEPTBLE_CENTRAL
+    def_bool $(shields_list_contains,AdeptBLE_central)
+    select ZMK_SPLIT_BLE_ROLE_CENTRAL
