@@ -1,3 +1,5 @@
+#if !defined(BOARD_NRF52840DONGLE_NRF52840)
+
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/matrix_transform.h>
@@ -153,4 +155,6 @@
         process-next;
     };
   };
-}; 
+};
+
+#endif
