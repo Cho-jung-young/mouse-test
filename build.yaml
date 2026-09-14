@@ -18,12 +18,12 @@
 #
 ---
 include:
-  # [1번 세트] 트랙볼 마우스 본체용 (지우면 안 됨!)
+  # 1. 트랙볼 마우스 본체용 (기존 설정)
   - board: seeeduino_xiao_ble
     shield: AdeptBLE
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
 
-  # [2번 세트] Holyiot 동글 수신기용 (지우지 말고 밑에 추가!)
-  - board: nrf52840dongle/nrf52840
+  # 2. Holyiot 동글 수신기용 (nrf52840dongle_nrf52840 으로 수정!)
+  - board: nrf52840dongle_nrf52840
     shield: AdeptBLE
