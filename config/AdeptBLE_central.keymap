@@ -1,0 +1,14 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    /* 중복 매크로 충돌 없이 1개의 가상 노드만 깨끗하게 조립해 냅니다 */
+    keymap {
+        compatible = "zmk,keymap";
+        default_layer {
+            bindings = <
+                &none
+            >;
+        };
+    };
+};
