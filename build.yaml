@@ -18,13 +18,12 @@
 #
 ---
 include:
-  # 1. 트랙볼 마우스 본체용 (기존 설정)
+  # 1. 트랙볼 마우스 본체용 (Xiao BLE)
   - board: seeeduino_xiao_ble
-    shield: AdeptBLE
+    shield: AdeptBLE_peripheral
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
 
-# 2. Holyiot 동글 수신기용 (본체 오버레이 무시 및 무력화 명령어 추가)
+  # 2. Holyiot 무선 동글 수신기용 (nRF52840 Dongle)
   - board: nrf52840dongle_nrf52840
-    shield: AdeptBLE
-    cmake-args: -DSHIELD_AdeptBLE_overlay_DTS_UNUSED=y -DCONFIG_PMW3610=n
+    shield: AdeptBLE_central
