@@ -1,3 +1,23 @@
-/* Holyiot 22046 동글 수신기용 순수 가상 오버레이 포맷 */
 / {
+    /* 1. 컴파일러가 키맵 크기를 계산할 수 있도록 가상 장치 경로 지정 */
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix-transform = &default_transform;
+    };
+
+    /* 2. 핀 간섭 없는 순수 수신기 전용 가상 키스캔 드라이버 활성화 */
+    kscan0: kscan {
+        compatible = "zmk,kscan-mock";
+        columns = <1>;
+        rows = <1>;
+        events = <0>;
+    };
+
+    /* 3. 에러를 내던 keymap size 계산을 완벽히 충족시키는 1x1 매트릭스 레이아웃 정의 */
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        rows = <1>;
+        columns = <1>;
+        map = <RC(0,0)>;
+    };
 };
