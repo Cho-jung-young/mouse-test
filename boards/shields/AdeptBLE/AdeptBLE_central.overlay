@@ -1,18 +1,15 @@
 / {
-    /* 1. 수신기를 위한 가상 키스캔 장치 최종 매핑 */
+    /* 컴파일러가 인식할 가상 키스캔 장치 경로 지정 */
     chosen {
         zmk,kscan = &kscan0;
     };
 
+    /* nRF52840 칩 자체의 내부 GPIO 포트를 빌려 가상 단추로 선언 (물리 핀 간섭 없음) */
     kscan0: kscan {
-        compatible = "zmk,kscan-mock";
-        columns = <1>;
-        rows = <1>;
-        events = <0>;
-    };
-
-    /* 2. 본체(Xiao BLE)의 신호를 무선으로 받아들이기 위한 가상 BLE 스플릿 통로 노드 주입 */
-    split {
-        compatible = "zmk,split-processor";
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        input-gpios
+            = <&gpio0 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            ;
     };
 };
