@@ -1,3 +1,14 @@
-/* Holyiot 22046 동글 수신기용 빈 오버레이 */
 / {
+    /* 1. 컴파일러가 인식할 가상 1키 매트릭스 노드 강제 결합 */
+    chosen {
+        zmk,kscan = &kscan0;
+    };
+
+    /* 2. 물리 핀 충돌 없는 순수 수신기 전용 더미(Virtual) 키스캔 드라이버 선언 */
+    kscan0: kscan {
+        compatible = "zmk,kscan-mock";
+        columns = <1>;
+        rows = <1>;
+        events = <0>;
+    };
 };
