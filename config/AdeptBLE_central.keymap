@@ -3,13 +3,23 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
+    /* 동글 컴파일러가 요구하는 가상 1키 매트릭스 구조 정의 */
+    chosen {
+        zmk,matrix-transform = &default_transform;
+    };
+
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        rows = <1>;
+        columns = <1>;
+        map = <RC(0,0)>;
+    };
+
+    /* 무선 수신기 전용 더미 키맵 데이터 */
     keymap {
         compatible = "zmk,keymap";
         default_layer {
-            bindings = <
-                &none &none &none &none
-                &none &none
-            >;
+            bindings = <&none>;
         };
     };
 };
